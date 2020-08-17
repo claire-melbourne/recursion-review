@@ -16,32 +16,37 @@ var stringifyJSON = function(obj) {
   if (Array.isArray(obj)) {
     var str = '[';
 
-    if (obj.length === 0) {
-      return '[]';
-    }
     for (var i = 0; i < obj.length; i++) {
       str += stringifyJSON(obj[i]) + ',';
     }
-    str = str.slice(0, str.length - 1) + ']';
-    return str;
-  }
 
-  if (typeof obj === 'function' || obj === undefined) {
-    return '{}';
+    if (str[str.length - 1] === ',') {
+      str = str.slice(0, str.length - 1) + ']';
+    } else {
+      str += ']';
+    }
+
+    return str;
   }
 
   if (typeof obj === 'object') {
 
-    if (Object.keys(obj).length === 0) {
-      return '{}';
-    }
-
     var str = '{';
     for (var key in obj) {
+      if (typeof obj[key] === 'function' || obj[key] === undefined) {
+        continue;
+      }
+
       str += stringifyJSON(key) + ':' + stringifyJSON(obj[key]) + ',';
     }
-    str = str.slice(0, str.length - 1) + '}';
+
+    if (str[str.length - 1] === ',') {
+      str = str.slice(0, str.length - 1) + '}';
+    } else {
+      str += '}';
+    }
     return str;
+
   }
 
   return '' + obj;
