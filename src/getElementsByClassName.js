@@ -5,13 +5,13 @@
 
 // But instead we're going to implement it from scratch:
 var getElementsByClassName = function(className, node = document.body, siblings = []) {
-  var classes = [].slice().call(node.classList);
+  var classes = [].slice.call(node.classList);
   if (classes.includes(className)) {
     var part = [node];
   } else {
     var part = [];
   }
-  var children = [].slice().call(node.children);
+  var children = [].slice.call(node.children);
   if (children.length === 0 && siblings.length === 0) {
     return part;
   }
