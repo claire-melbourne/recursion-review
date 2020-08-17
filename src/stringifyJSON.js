@@ -5,5 +5,23 @@
 
 var stringifyJSON = function(obj) {
   // your code goes here
+
+  if (typeof obj === 'string') {
+    return '"' + obj + '"';
+  }
+  if (Array.isArray(obj)) {
+    var str = '[';
+
+    if(obj.length === 0) {
+      return '[]';
+    }
+    for (var i = 0; i < obj.length; i++) {
+      str += stringifyJSON(obj[i]) + ',';
+    }
+    str = str.slice(0, str.length - 1) + ']';
+    return str;
+  }
+
   return '' + obj;
+
 };
